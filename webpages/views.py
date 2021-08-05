@@ -4,7 +4,7 @@ from store.models import Product
 
 class HomePageView(generic.ListView):
     template_name    = 'webpages/home.html'
-    queryset = Product.objects.all().filter(is_available=True)
+    queryset = Product.objects.all().filter(is_available=True, is_popular=True)
     context_object_name = 'products'
     
     
