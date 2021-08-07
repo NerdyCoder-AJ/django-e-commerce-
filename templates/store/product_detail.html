@@ -2,7 +2,6 @@
 
 <section class="section-content padding-y bg">
   <div class="container">
-    <!-- ============================ COMPONENT 1 ================================= -->
     <div class="card">
       <div class="row no-gutters">
         <aside class="col-md-6">
@@ -23,17 +22,14 @@
             </div>
 
             <p>
-                {{single_product.description}}
+              {{single_product.description}}
             </p>
 
             <hr />
             <div class="row">
               <div class="item-option-select">
                 <h6>Choose Color</h6>
-                <div
-                  class="btn-group btn-group-sm btn-group-toggle"
-                  data-toggle="buttons"
-                >
+                <div class="btn-group btn-group-sm btn-group-toggle" data-toggle="buttons">
                   <label class="btn btn-light">
                     <input type="radio" name="radio_color" /> Silver
                   </label>
@@ -53,10 +49,7 @@
             <div class="row">
               <div class="item-option-select">
                 <h6>Select Size</h6>
-                <div
-                  class="btn-group btn-group-sm btn-group-toggle"
-                  data-toggle="buttons"
-                >
+                <div class="btn-group btn-group-sm btn-group-toggle" data-toggle="buttons">
                   <label class="btn btn-light">
                     <input type="radio" name="radio_color" /> S
                   </label>
@@ -74,10 +67,14 @@
             </div>
             <!-- row.// -->
             <hr />
-            <a href="./product-detail.html" class="btn btn-primary">
+            {% if single_product.stock is 0 %}
+            <h5 class="text text-danger">Out of Stock!!</h5>
+            {% else %}
+            <a href="{% url 'add-cart' single_product.id  %}" class="btn btn-primary">
               <span class="text">Add to cart</span>
               <i class="fas fa-shopping-cart"></i>
             </a>
+            {% endif %}
           </article>
           <!-- product-info-aside .// -->
         </main>
@@ -85,11 +82,10 @@
       </div>
       <!-- row.// -->
     </div>
-    <!-- card.// -->
-    <!-- ============================ COMPONENT 1 END .// ================================= -->
+    <br/>
 
-    <br />
 
+    {% comment %} Customer reviews {% endcomment %}
     <div class="row">
       <div class="col-md-9">
         <header class="section-heading">
@@ -98,10 +94,7 @@
 
         <article class="box mb-3">
           <div class="icontext w-100">
-            <img
-              src="{% static './images/avatars/avatar1.jpg' %}"
-              class="img-xs icon rounded-circle"
-            />
+            <img src="{% static './images/avatars/avatar1.jpg' %}" class="img-xs icon rounded-circle" />
             <div class="text">
               <span class="date text-muted float-md-right">24.04.2020 </span>
               <h6 class="mb-1">Mike John</h6>
@@ -118,11 +111,8 @@
           </div>
         </article>
       </div>
-      <!-- col.// -->
     </div>
-    <!-- row.// -->
   </div>
-  <!-- container .//  -->
 </section>
 
 {% endblock %}

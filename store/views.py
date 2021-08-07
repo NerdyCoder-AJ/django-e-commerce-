@@ -4,28 +4,24 @@ from .models import Product
 from category.models import Category
 
 
-class StoreViewPage(generic.TemplateView):
-    template_name = 'store/store.html'
-
-    def get_context_data(self, category_slug=None, **kwargs):
-        context = super(StoreViewPage, self).get_context_data(**kwargs)
-
+def StoreViewPage(request, category_slug=None ):
         categories = None
         products = None
+        
         if category_slug is not None:
             categories = get_object_or_404(Category, slug=category_slug)
-            products = Product.objects.all().filter(category=categories, is_available=True)
+            products = Product.objects.filter(category=categories, is_available=True)
             product_count = Product.objects.filter(
                 category=categories, is_available=True).count()
         else:
             products = Product.objects.all().filter(is_available=True)
             product_count = Product.objects.all().filter(is_available=True).count()
 
-        context.update({
+        context ={
             'products': products,
             'product_count': product_count
-        })
-        return context
+        }
+        return render(request, 'store/store.html', context)
 
 
 class ProductDetailPage(generic.TemplateView):

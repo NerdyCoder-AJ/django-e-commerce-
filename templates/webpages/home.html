@@ -4,7 +4,7 @@
 <section class="section-intro padding-y-sm">
     <div class="container">
         <div class="intro-banner-wrap">
-            <img src="{% static 'images/banners/1.jpg' %}" class="img-fluid rounded" />
+            <img src="{% static 'images/banners/cover.jpg' %}" class="img-fluid rounded" />
         </div>
     </div>
     <!-- container //  -->
@@ -21,7 +21,7 @@
         <!-- sect-heading -->
 
         <div class="row">
-            {% for product in products%}
+            {% for product in view.products%}
             <div class="col-md-3">
                 <div class="card card-product-grid">
                     <a href="{{ product.get_url }}" class="img-wrap">
