@@ -37,7 +37,7 @@
                   <div class="col">
                     <div class="input-group input-spinner">
                       <div class="input-group-prepend">
-                        <a href="" class="btn btn-light" type="button">
+                        <a href="{% url 'remove-cart' cart_item.product.id  %}" class="btn btn-light" type="button">
                           <i class="fa fa-minus"></i>
                         </a>
                       </div>
@@ -54,13 +54,13 @@
                 </td>
                 <td>
                   <div class="price-wrap">
-                    <var class="price">$ {{cart_item.sub_total}}</var>
-                    <small class="text-muted">$ {{cart_item.product.price}} each</small>
+                    <var class="price"><i class="fas fa-rupee-sign"></i> {{cart_item.sub_total}}</var>
+                    <small class="text-muted"><i class="fas fa-rupee-sign"></i> {{cart_item.product.price}} each</small>
                   </div>
                   <!-- price-wrap .// -->
                 </td>
                 <td class="text-right">
-                  <a href="" class="btn btn-danger"> Remove</a>
+                  <a href="{% url 'remove-cart-item' cart_item.product.id  %}" class="btn btn-danger">Remove</a>
                 </td>
               </tr>
               {% endfor %}
@@ -75,15 +75,15 @@
           <div class="card-body">
             <dl class="dlist-align">
               <dt>Total price:</dt>
-              <dd class="text-right">$69.97</dd>
+              <dd class="text-right"><i class="fas fa-rupee-sign"></i> {{total}}</dd>
             </dl>
             <dl class="dlist-align">
-              <dt>Tax:</dt>
-              <dd class="text-right">$10.00</dd>
+              <dt>GST:</dt>
+              <dd class="text-right"><i class="fas fa-rupee-sign"></i> {{ gst }}</dd>
             </dl>
             <dl class="dlist-align">
               <dt>Total:</dt>
-              <dd class="text-right text-dark b"><strong>$59.97</strong></dd>
+              <dd class="text-right text-dark b"><strong>{{grand_total }}</strong></dd>
             </dl>
             <hr />
             <p class="text-center mb-3">
@@ -92,7 +92,7 @@
             <a href="./place-order.html" class="btn btn-primary btn-block">
               Checkout
             </a>
-            <a href="./store.html" class="btn btn-light btn-block">Continue Shopping</a>
+            <a href="{% url 'store-page' %}" class="btn btn-light btn-block">Continue Shopping</a>
           </div>
           <!-- card-body.// -->
         </div>

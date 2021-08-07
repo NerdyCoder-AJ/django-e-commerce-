@@ -1,9 +1,9 @@
 from django.core.exceptions import ObjectDoesNotExist
-from django.shortcuts import redirect, render
+from django.http import request
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views import generic
 from store.models import Product
 from carts.models import Cart, CartItem
-
 
 def _cart_id(request):
    cart = request.session.session_key
@@ -12,9 +12,9 @@ def _cart_id(request):
    return cart
 
 def add_cart(request, product_id):
-   product = Product.objects.get(id=product_id)
+   product = Product.objects.get(id=product_id) # got product 
    try:
-      cart = Cart.objects.get(cart_id=_cart_id(request))
+      cart = Cart.objects.get(cart_id=_cart_id(request)) 
    except Cart.DoesNotExist:
       cart = Cart.objects.create(cart_id=_cart_id(request))
       cart.save()
@@ -29,6 +29,24 @@ def add_cart(request, product_id):
    return redirect('cart-page')
 
 
+def remove_cart(request, product_id):
+   cart = Cart.objects.get(cart_id = _cart_id(request))
+   product = get_object_or_404(Product, id=product_id)
+   cart_item = CartItem.objects.get(product=product, cart=cart)
+   if cart_item.quantity > 1:
+      cart_item.quantity -= 1
+      cart_item.save()
+   else:
+      cart_item.delete()
+   return redirect('cart-page')
+
+def remove_cart_item(request, product_id):
+   cart = Cart.objects.get(cart_id = _cart_id(request))
+   product = get_object_or_404(Product, id=product_id)
+   cart_item = CartItem.objects.get(product=product, cart=cart)
+   cart_item.delete()
+   return redirect('cart-page')
+
 def CartPage(request, total=0, quantity=0, cart_items=None):
    try:
       cart = Cart.objects.get(cart_id=_cart_id(request))
@@ -36,6 +54,8 @@ def CartPage(request, total=0, quantity=0, cart_items=None):
       for cart_item in cart_items:
          total += (cart_item.product.price * cart_item.quantity)
          quantity += cart_item.quantity
+      gst = (5 * total)/100
+      grand_total = total + gst
    except ObjectDoesNotExist:
       pass
 
@@ -43,7 +63,8 @@ def CartPage(request, total=0, quantity=0, cart_items=None):
       'total': total,
       'quantity': quantity,
       'cart_items': cart_items,
-
+      'gst': gst,
+      'grand_total': grand_total,
    }
 
    return render(request, 'store/cart.html', context)
