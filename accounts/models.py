@@ -42,6 +42,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
     last_name   = models.CharField(max_length=50)
     username    = models.CharField(max_length=50, unique=True)
     email       = models.EmailField(max_length=50, unique=True)
+    phone_number = models.CharField(max_length=50)
 
     #requried
     date_joined   = models.DateTimeField(auto_now_add=True)
@@ -55,6 +56,9 @@ class Account(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS  = ['username', 'first_name', 'last_name']
 
     objects = MyAccountManager()
+
+    def __str__(self):
+        return self.first_name + self.last_name
 
     def has_perm(self, perm, obj=None):
         return self.is_admin

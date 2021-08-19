@@ -20,6 +20,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'jazzmin',
+    'import_export',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -56,7 +57,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'category.context_processors.menu_links'
+                'category.context_processors.menu_links',
+                'carts.context_processrors.counter'
             ],
         },
     },
@@ -119,7 +121,16 @@ STATICFILES_DIRS =  [
     os.path.join(BASE_DIR, 'DjCart/static')
 ]
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
+}
 
+# SMTP Configration
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'akashjalkote55@gmail.com'
+EMAIL_HOST_PASSWORD = 'akash754654'
+EMAIL_USE_TLS = True
+ 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

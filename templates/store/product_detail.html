@@ -14,6 +14,8 @@
           <!-- gallery-wrap .end// -->
         </aside>
         <main class="col-md-6 border-left">
+          <form action="{% url 'add-cart' single_product.id  %}" method="POST">
+            {% csrf_token %}
           <article class="content-body">
             <h2 class="title">{{ single_product.product_name }}</h2>
 
@@ -30,18 +32,12 @@
               <div class="item-option-select">
                 <h6>Choose Color</h6>
                 <div class="btn-group btn-group-sm btn-group-toggle" data-toggle="buttons">
-                  <label class="btn btn-light">
-                    <input type="radio" name="radio_color" /> Silver
-                  </label>
-                  <label class="btn btn-light">
-                    <input type="radio" name="radio_color" /> Gray
-                  </label>
-                  <label class="btn btn-light active">
-                    <input type="radio" name="radio_color checked" /> Gold
-                  </label>
-                  <label class="btn btn-light">
-                    <input type="radio" name="radio_color" /> Black
-                  </label>
+                  <select name="color" class="form-control" required>
+                    <option value="" disabled selected>Choose Color</option>
+                    {% for color in single_product.variation_set.colors %}
+                    <option value="{{color.variation_value}}">{{color.variation_value | capfirst}}</option>
+                    {% endfor %}
+                  </select>
                 </div>
               </div>
             </div>
@@ -50,32 +46,23 @@
               <div class="item-option-select">
                 <h6>Select Size</h6>
                 <div class="btn-group btn-group-sm btn-group-toggle" data-toggle="buttons">
-                  <label class="btn btn-light">
-                    <input type="radio" name="radio_color" /> S
-                  </label>
-                  <label class="btn btn-light active">
-                    <input type="radio" name="radio_color" checked /> M
-                  </label>
-                  <label class="btn btn-light">
-                    <input type="radio" name="radio_color" /> L
-                  </label>
-                  <label class="btn btn-light">
-                    <input type="radio" name="radio_color" /> XL
-                  </label>
+                  <select name="size" class="form-control" required>
+                    <option value="" disabled selected>Choose Size</option>
+                    {% for size in single_product.variation_set.sizes %}
+                    <option value="{{size.variation_value}}">{{size.variation_value | capfirst}}</option>
+                    {% endfor %}
+                  </select>
                 </div>
               </div>
             </div>
-            <!-- row.// -->
             <hr />
             {% if single_product.stock is 0 %}
             <h5 class="text text-danger">Out of Stock!!</h5>
-            {% else %}
-            <a href="{% url 'add-cart' single_product.id  %}" class="btn btn-primary">
-              <span class="text">Add to cart</span>
-              <i class="fas fa-shopping-cart"></i>
-            </a>
+            {% else %}  
+                <button class="btn btn-primary"><span class="text">Add to Cart</span><i class="fas fa-shopping-cart"></i></button>
             {% endif %}
           </article>
+        </form>
           <!-- product-info-aside .// -->
         </main>
         <!-- col.// -->
@@ -85,7 +72,7 @@
     <br/>
 
 
-    {% comment %} Customer reviews {% endcomment %}
+     <!-- Customer reviews  -->
     <div class="row">
       <div class="col-md-9">
         <header class="section-heading">
