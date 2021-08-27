@@ -1,62 +1,62 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
 <section class="section-content padding-y bg">
   <div class="container">
-    <!-- ============================ COMPONENT 1 ================================= -->
+    <!-- ================= COMPONENT 1 =============== -->
     <div class="row">
       <aside class="col-lg-6">
         <div class="card">
           <div class="card-body">
               <h4 class='card-title mb-4'>Billing address</h4>
-              <form action="" method="post">
+              <form action="{% url 'place-order' %}" method="POST">
+                  {% csrf_token %}
                   <div class="row">
                       <div class="col form-group">
                           <label for="">First Name</label>
-                          <input type="text" class="form-control" name="first_name">
+                          <input type="text" class="form-control" name="first_name" required>
                       </div>
                       <div class="col form-group">
                         <label for="">Last Name</label>
-                        <input type="text" class="form-control" name="last_name">
+                        <input type="text" class="form-control" name="last_name" required>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col form-group">
                         <label for="">Email</label>
-                        <input type="email" class="form-control" name="email">
+                        <input type="email" class="form-control" name="email" required>
                     </div>
                     <div class="col form-group">
                       <label for="">Phone Number</label>
-                      <input type="tel" class="form-control" name="phone">
+                      <input type="tel" class="form-control" name="phone" required>
                   </div>
                 </div>
                 <div class="row">
                     <div class="col form-group">
                         <label for="">Address line 1</label>
-                        <input type="text" class="form-control" name="address1">
+                        <input type="text" class="form-control" name="address_line_1" required>
                     </div>
                     <div class="col form-group">
                       <label for="">Address line 2</label>
-                      <input type="text" class="form-control" name="address2">
+                      <input type="text" class="form-control" name="address_line_2">
                   </div>
                 </div>
                 <div class="row">
                     <div class="col form-group">
                         <label for="">Pincode</label>
-                        <input type="text" class="form-control" name="pincode">
+                        <input type="text" class="form-control" name="pincode" required>
                     </div>
                     <div class="col form-group">
                       <label for="">State</label>
-                      <input type="text" class="form-control" name="State">
+                      <input type="text" class="form-control" name="state" required>
                   </div>
                   <div class="col form-group">
                     <label for="">City</label>
-                    <input type="text" class="form-control" name="City">
+                    <input type="text" class="form-control" name="city" required>
                 </div>
                 <div class="col form-group">
                     <label for="">Country</label>
-                    <input type="text" class="form-control" name="Country">
+                    <input type="text" class="form-control" name="country" required>
                 </div>
             </div>
-              </form>
           </div>
         </div>
         <!-- card.// -->
@@ -111,10 +111,12 @@
                 </tbody>
               </table>
               <div>
-            <a href="" class="btn btn-primary btn-block">
+            <button type="submit" class="btn btn-primary btn-block">
               Place order
-            </a>
+            </button>
             <a href="{% url 'store-page' %}" class="btn btn-light btn-block">Continue Shopping</a>
+          </form>
+
         </div>
           </div>
           <!-- card-body.// -->

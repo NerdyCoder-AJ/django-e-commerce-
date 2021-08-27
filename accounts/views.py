@@ -24,8 +24,8 @@ def login(request):
 
         if user is not None:
             auth.login(request, user)
-            # messages.success(request, 'you are logged in')
-            return redirect('home-page')
+            messages.success(request, 'you are logged in')
+            return redirect('dashboard')
         else:
             messages.warning(request, 'email and password is incorrect')
             return redirect('login-page')
