@@ -59,8 +59,8 @@
                 </td>
                 <td>
                   <div class="price-wrap">
-                    <var class="price"><i class="fas fa-rupee-sign"></i> {{cart_item.sub_total}}</var>
-                    <small class="text-muted"><i class="fas fa-rupee-sign"></i> {{cart_item.product.price}} each</small>
+                    <var class="price">$ {{cart_item.sub_total}}</var>
+                    <small class="text-muted">$ {{cart_item.product.price}} each</small>
                   </div>
                   <!-- price-wrap .// -->
                 </td>
@@ -77,19 +77,19 @@
             <dl class="dlist-align">
               <dt>Total price:</dt>
               <dd class="text-right">
-                <i class="fas fa-rupee-sign"></i> {{total}}
+               $ {{total}}
               </dd>
             </dl>
             <dl class="dlist-align">
               <dt>GST:</dt>
               <dd class="text-right">
-                <i class="fas fa-rupee-sign"></i> {{ gst }}
+                $ {{ gst }}
               </dd>
             </dl>
             <dl class="dlist-align">
               <dt>Total:</dt>
               <dd class="text-right text-dark b">
-                <strong>{{ grand_total }}</strong>
+                <strong>$ {{ grand_total }}</strong>
               </dd>
             </dl>
             <hr />
@@ -123,6 +123,8 @@
   var url = "{% url 'payments' %}"
   var orderID = "{{ order.order_number }}"
   var csrftoken = getCookie('csrftoken');
+  var redirect_url = "{% url 'order_complete' %}"
+
 
   paypal.Buttons({
 
@@ -157,8 +159,10 @@
 
                 }),  
               })
-             // .then(response => response.json())
-             // .then(data => console.log(data));
+                .then((response) => response.json())
+                .then((data) => {
+                  window.location.href = redirect_url + '?order_number='+data.order_number+'&payment_id='+data.transID;
+                });
 
             }
 

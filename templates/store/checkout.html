@@ -101,8 +101,8 @@
                     </td>
                     <td>
                       <div class="price-wrap">
-                        <var class="price"><i class="fas fa-rupee-sign"></i> {{cart_item.sub_total}}</var>
-                        <small class="text-muted"><i class="fas fa-rupee-sign"></i> {{cart_item.product.price}} each</small>
+                        <var class="price">$ {{cart_item.sub_total}}</var>
+                        <small class="text-muted">$ {{cart_item.product.price}} each</small>
                       </div>
                       <!-- price-wrap .// -->
                     </td>
@@ -114,7 +114,7 @@
             <button type="submit" class="btn btn-primary btn-block">
               Place order
             </button>
-            <a href="{% url 'store-page' %}" class="btn btn-light btn-block">Continue Shopping</a>
+            <a href="{% url 'store' %}" class="btn btn-light btn-block">Continue Shopping</a>
           </form>
 
         </div>

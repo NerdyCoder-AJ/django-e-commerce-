@@ -11,7 +11,7 @@
 <section class="section-name padding-y-sm">
     <div class="container">
         <header class="section-heading">
-            <a href="{% url 'store-page' %}" class="btn btn-outline-primary float-right">See all</a>
+            <a href="{% url 'store' %}" class="btn btn-outline-primary float-right">See all</a>
             <h3 class="section-title">Popular products</h3>
         </header>
 
@@ -25,8 +25,8 @@
                     <figcaption class="info-wrap">
                         <a href="{{ product.get_url }}" class="title">{{product.product_name}}</a>
                         <div>
-                            <i class="fas fa-rupee-sign"> <span class="price"
-                            style="font-size: 18px;">{{product.price}}</span></i>
+                            <span class="price"
+                            style="font-size: 15px;">$ {{product.price}}</span></i>
                         </div>
                     </figcaption>
                 </div>
