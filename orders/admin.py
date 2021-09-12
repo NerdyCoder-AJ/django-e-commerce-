@@ -8,8 +8,18 @@ class OrderAdmin(admin.ModelAdmin):
     search_fields = ['order_number', 'phone', 'email']
     list_per_page = 20
 
+class PaymentAdmin(admin.ModelAdmin):
+    list_display = ['user', 'payment_id', 'payment_method', 'amount_paid', 'status', 'created_at']
+    list_filter = ['payment_id',]
+    search_fields = ['payment_id',]
+    list_per_page = 20
 
-admin.site.register(Payment)
+    
+class OrderProductAdmin(admin.ModelAdmin):
+    list_display = ['user', 'order', 'product_price', 'ordered', 'creted_at']
+    list_per_page = 20
+
+admin.site.register(Payment, PaymentAdmin)
 admin.site.register(Order, OrderAdmin)
-admin.site.register(OrderProduct)
+admin.site.register(OrderProduct, OrderProductAdmin)
 

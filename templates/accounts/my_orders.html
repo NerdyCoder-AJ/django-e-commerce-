@@ -24,10 +24,10 @@
                       </tr>
                     </thead>
                     <tbody>
-                    {% if orders%}
-                    {% for order in orders%}
+                    {% if orders %}
+                    {% for order in orders %}
                       <tr>
-                        <th>{{order.order_number}}</th>
+                        <td><a href="{% url 'order_detail' order.order_number  %}">{{order.order_number}}</a></td>
                         <td>{{order.full_name}}</td>
                         <td>{{order.order_total}}</td>
                         <td>{{order.created_at}}</td>

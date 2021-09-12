@@ -1,0 +1,73 @@
+{% autoescape off %}
+
+{% load static %}
+Hi {{user.first_name}} {{user.last_name}},
+
+<div>
+<h3>Invoiced To</h3> 
+<ul style="list-style-type: none;">
+<li>{{order.full_name}}</li>
+<li>{{order.full_address}}</li>
+<li>{{order.city}}, {{order.state}}</li>
+<li>{{order.country}}</li>
+</ul>
+</div>
+
+<div>
+<h3>Order Details</h3>
+<ul style="list-style-type: none;">
+<li><strong>Order</strong> #{{order_number}}</li>
+<li><strong>Transaction ID:</strong> {{transID}}</li>
+<li><strong>Order Date:</strong> {{order.created_at}} </li>
+<li><strong>Status:</strong> {{payment.status}}</li>
+</ul>
+</div>
+
+
+<h3>Ordered Products</h3>
+<div>
+  <div>
+    <table>
+      <thead>
+        <tr>
+          <th>Products</th>
+          <th>Qty</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for item in ordered_products %}
+        <tr>
+          <td>
+            {{item.product.product_name}}
+            <p>
+          {% if item.variations.all %} 
+          {% for i in item.variations.all %} 
+          {{ i.variation_category |
+              capfirst }} : {{ i.variation_value | capfirst }}
+              <br />
+          {% endfor %} 
+          {% endif %}
+          </p>
+          </td>
+          <td>  {{item.quantity}}</td>
+          <td> ${{item.product_price}} USD</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div>
+<h3>Billing Details</h3>
+<ul style="list-style-type: none;">
+<li>Sub Total: ${{subtotal}} USD</li>
+<li>Tax:     ${{order.gst}} USD</li>
+<li>Total:  ${{order.order_total}} USD</li>
+</ul>
+</div>
+               
+<p>Thank you for shopping with us!</p>
+ 
+{% endautoescape %}

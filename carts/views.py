@@ -188,7 +188,7 @@ def cart(request, total=0, quantity=0, cart_items=None):
     return render(request, 'store/cart.html', context)
 
 
-@login_required(login_url='login')
+@login_required(login_url='login-page')
 def checkout(request, total=0, quantity=0, cart_items=None):
     try:
         tax = 0

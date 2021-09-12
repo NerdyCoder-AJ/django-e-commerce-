@@ -1,12 +1,12 @@
 from decimal import Context
 from django.contrib import messages
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib import auth
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from .forms import RegistrationForm
 from .models import Account
-from orders.models import Order
+from orders.models import Order, OrderProduct
 
 # Verification email
 from django.contrib.sites.shortcuts import get_current_site
@@ -82,6 +82,7 @@ def register(request):
 def logout(request):
     auth.logout(request)
     return redirect('login-page')
+
 
 def activate(request, uidb64, token):
     try:
@@ -171,9 +172,12 @@ def resetPassword(request):
     else: 
        return render(request, 'accounts/resetPassword.html')
 
+
+@login_required(login_url='login-page')
 def my_orders(request):
     orders = Order.objects.filter(user=request.user, is_ordered = True).order_by('-created_at')
     context = {
         'orders': orders
     }
     return render(request, 'accounts/my_orders.html', context)
+
